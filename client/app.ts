@@ -1,7 +1,10 @@
 import 'reflect-metadata';
 import 'zone.js/dist/zone';
 import {Component} from '@angular/core';
-import {bootstrap} from '@angular/platform-browser-dynamic';
+import {bootstrap} from 'angular2-meteor-auto-bootstrap';
+import {Mongo} from 'meteor/mongo';
+
+import {Parties} from '../collections/parties';
 
 @Component({
   selector: 'app',
@@ -9,23 +12,10 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 })
 
 class Tere {
-  parties: Array<Object>;
+  parties: Mongo.Cursor<Object>;
 
   constructor(){
-    this.parties = [
-      {'name': 'Spaghetti-Free Zone',
-        'description': 'No spaghetti here',
-        'location': 'Palo Alto'
-      },
-      {'name': 'SpaghettiFest',
-        'description': 'Spaaaaaaaaaaghetti!',
-        'location': 'Palo Alto'
-      },
-      {'name': 'NoodleFest',
-        'description': 'noodlenoodlenoodlenoodle',
-        'location': 'San Francisco'
-      }
-    ];
+    this.parties = Parties.find();
   }
 }
 bootstrap(Tere);

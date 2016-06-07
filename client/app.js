@@ -11,23 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 require('reflect-metadata');
 require('zone.js/dist/zone');
 var core_1 = require('@angular/core');
-var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
+var angular2_meteor_auto_bootstrap_1 = require('angular2-meteor-auto-bootstrap');
+var parties_1 = require('../collections/parties');
 var Tere = (function () {
     function Tere() {
-        this.parties = [
-            { 'name': 'Spaghetti-Free Zone',
-                'description': 'No spaghetti here',
-                'location': 'Palo Alto'
-            },
-            { 'name': 'SpaghettiFest',
-                'description': 'Spaaaaaaaaaaghetti!',
-                'location': 'Palo Alto'
-            },
-            { 'name': 'NoodleFest',
-                'description': 'noodlenoodlenoodlenoodle',
-                'location': 'San Francisco'
-            }
-        ];
+        this.parties = parties_1.Parties.find();
     }
     Tere = __decorate([
         core_1.Component({
@@ -38,5 +26,5 @@ var Tere = (function () {
     ], Tere);
     return Tere;
 }());
-platform_browser_dynamic_1.bootstrap(Tere);
+angular2_meteor_auto_bootstrap_1.bootstrap(Tere);
 //# sourceMappingURL=app.js.map
