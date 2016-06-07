@@ -14,6 +14,20 @@ var core_1 = require('@angular/core');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var Tere = (function () {
     function Tere() {
+        this.parties = [
+            { 'name': 'Spaghetti-Free Zone',
+                'description': 'No spaghetti here',
+                'location': 'Palo Alto'
+            },
+            { 'name': 'SpaghettiFest',
+                'description': 'Spaaaaaaaaaaghetti!',
+                'location': 'Palo Alto'
+            },
+            { 'name': 'NoodleFest',
+                'description': 'noodlenoodlenoodlenoodle',
+                'location': 'San Francisco'
+            }
+        ];
     }
     Tere = __decorate([
         core_1.Component({
