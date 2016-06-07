@@ -21,6 +21,7 @@
   ],
   "files": [
     "client/app.ts",
+    "client/imports/parties-form/parties-form.ts",
     "server/load-parties.ts",
     "server/main.ts",
     "typings/globals/es6-shim/index.d.ts",
