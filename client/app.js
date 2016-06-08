@@ -18,6 +18,9 @@ var Tere = (function () {
     function Tere() {
         this.parties = parties_1.Parties.find();
     }
+    Tere.prototype.removeParty = function (party) {
+        parties_1.Parties.remove(party._id);
+    };
     Tere = __decorate([
         core_1.Component({
             selector: 'app',
