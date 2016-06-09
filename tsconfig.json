@@ -13,8 +13,7 @@
   "filesGlob": [
     "client/**/*.ts",
     "server/**/*.ts",
-    "typings/**/*.d.ts",
-    "collections/**/*.ts"
+    "typings/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"
@@ -30,7 +29,7 @@
     "typings/globals/meteor/index.d.ts",
     "typings/index.d.ts",
     "typings/modules/es6-promise/index.d.ts",
-    "collections/parties.ts"
+    "typings/party.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

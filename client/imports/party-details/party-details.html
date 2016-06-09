@@ -2,10 +2,6 @@
   <label>Name</label>
   <input type="text" [(ngModel)]="party.name"/>
 
-  <p>
-    {{party.name}}
-  </p>
-
   <label>Description</label>
   <input type="text" [(ngModel)]="party.description"/>
 
@@ -13,5 +9,5 @@
   <input type="text" [(ngModel)]="party.location"/>
 
   <button type="submit">Save</button>
-  <button [routerLink]="['/PartiesList']">Cancel</button>
+  <button [routerLink]="['/PartiesList']">Back</button>
 </form>

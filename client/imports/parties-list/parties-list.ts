@@ -12,7 +12,7 @@ import {PartiesForm} from '../parties-form/parties-form';
 })
 
 export class PartiesList {
-  parties: Mongo.Cursor<Object>;
+  parties: Mongo.Cursor<Party>;
 
   constructor(){
     this.parties = Parties.find();

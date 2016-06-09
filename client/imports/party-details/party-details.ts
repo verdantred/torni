@@ -10,7 +10,7 @@ import {Parties} from '../../../collections/parties.ts';
   directives: [RouterLink]
 })
 export class PartyDetails{
-  party: Object;
+  party: Party;
 
   constructor(params: RouteParams, ngZone: NgZone) {
     var partyId = params.get('partyId');
@@ -22,7 +22,7 @@ export class PartyDetails{
     });
   }
 
-  saveParty(party) {
+  saveParty(party: Party) {
     Parties.update(party._id, {
       $set: {
         name: party.name,
