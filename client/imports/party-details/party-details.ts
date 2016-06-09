@@ -1,6 +1,8 @@
 import {Component, NgZone} from '@angular/core';
 import {RouteParams, RouterLink} from '@angular/router-deprecated';
 import {Tracker} from 'meteor/tracker';
+import {Meteor} from 'meteor/meteor';
+//import {RequireUser} from 'angular2-meteor-accounts-ui';
 
 import {Parties} from '../../../collections/parties.ts';
 
@@ -9,6 +11,7 @@ import {Parties} from '../../../collections/parties.ts';
   templateUrl: '/client/imports/party-details/party-details.html',
   directives: [RouterLink]
 })
+//@RequireUser()
 export class PartyDetails{
   party: Party;
 
@@ -23,12 +26,17 @@ export class PartyDetails{
   }
 
   saveParty(party: Party) {
-    Parties.update(party._id, {
-      $set: {
-        name: party.name,
-        description: party.description,
-        location: party.location
-      }
-    });
+    if(Meteor.userId()) {
+      Parties.update(party._id, {
+        $set: {
+          name: party.name,
+          description: party.description,
+          location: party.location
+        }
+      });
+    }
+    else {
+      alert('Please log in to change this party');
+    }
   }
 }

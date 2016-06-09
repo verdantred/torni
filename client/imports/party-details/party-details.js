@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var tracker_1 = require('meteor/tracker');
+var meteor_1 = require('meteor/meteor');
+//import {RequireUser} from 'angular2-meteor-accounts-ui';
 var parties_ts_1 = require('../../../collections/parties.ts');
 var PartyDetails = (function () {
     function PartyDetails(params, ngZone) {
@@ -23,13 +25,18 @@ var PartyDetails = (function () {
         });
     }
     PartyDetails.prototype.saveParty = function (party) {
-        parties_ts_1.Parties.update(party._id, {
-            $set: {
-                name: party.name,
-                description: party.description,
-                location: party.location
-            }
-        });
+        if (meteor_1.Meteor.userId()) {
+            parties_ts_1.Parties.update(party._id, {
+                $set: {
+                    name: party.name,
+                    description: party.description,
+                    location: party.location
+                }
+            });
+        }
+        else {
+            alert('Please log in to change this party');
+        }
     };
     PartyDetails = __decorate([
         core_1.Component({
