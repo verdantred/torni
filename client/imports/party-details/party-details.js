@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var tracker_1 = require('meteor/tracker');
-var router_deprecated_2 = require('@angular/router-deprecated');
 var parties_ts_1 = require('../../../collections/parties.ts');
 var PartyDetails = (function () {
     function PartyDetails(params, ngZone) {
@@ -23,11 +22,20 @@ var PartyDetails = (function () {
             });
         });
     }
+    PartyDetails.prototype.saveParty = function (party) {
+        parties_ts_1.Parties.update(party._id, {
+            $set: {
+                name: party.name,
+                description: party.description,
+                location: party.location
+            }
+        });
+    };
     PartyDetails = __decorate([
         core_1.Component({
             selector: 'party-details',
             templateUrl: '/client/imports/party-details/party-details.html',
-            directives: [router_deprecated_2.RouterLink]
+            directives: [router_deprecated_1.RouterLink]
         }), 
         __metadata('design:paramtypes', [router_deprecated_1.RouteParams, core_1.NgZone])
     ], PartyDetails);

@@ -1,7 +1,6 @@
 import {Component, NgZone} from '@angular/core';
-import {RouteParams} from '@angular/router-deprecated';
+import {RouteParams, RouterLink} from '@angular/router-deprecated';
 import {Tracker} from 'meteor/tracker';
-import {RouterLink} from '@angular/router-deprecated';
 
 import {Parties} from '../../../collections/parties.ts';
 
@@ -20,6 +19,16 @@ export class PartyDetails{
       ngZone.run(() => {
         this.party = Parties.findOne(partyId);
       });
+    });
+  }
+
+  saveParty(party) {
+    Parties.update(party._id, {
+      $set: {
+        name: party.name,
+        description: party.description,
+        location: party.location
+      }
     });
   }
 }
