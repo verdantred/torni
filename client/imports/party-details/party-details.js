@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,19 +15,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
-var tracker_1 = require('meteor/tracker');
 var meteor_1 = require('meteor/meteor');
-//import {RequireUser} from 'angular2-meteor-accounts-ui';
+var angular2_meteor_accounts_ui_1 = require('angular2-meteor-accounts-ui');
+var angular2_meteor_1 = require('angular2-meteor');
 var parties_ts_1 = require('../../../collections/parties.ts');
-var PartyDetails = (function () {
-    function PartyDetails(params, ngZone) {
+var PartyDetails = (function (_super) {
+    __extends(PartyDetails, _super);
+    function PartyDetails(params) {
         var _this = this;
+        _super.call(this);
         var partyId = params.get('partyId');
-        tracker_1.Tracker.autorun(function () {
-            ngZone.run(function () {
-                _this.party = parties_ts_1.Parties.findOne(partyId);
-            });
-        });
+        this.subscribe('party', partyId, function () {
+            _this.party = parties_ts_1.Parties.findOne(partyId);
+        }, true);
     }
     PartyDetails.prototype.saveParty = function (party) {
         if (meteor_1.Meteor.userId()) {
@@ -43,10 +48,11 @@ var PartyDetails = (function () {
             selector: 'party-details',
             templateUrl: '/client/imports/party-details/party-details.html',
             directives: [router_deprecated_1.RouterLink]
-        }), 
-        __metadata('design:paramtypes', [router_deprecated_1.RouteParams, core_1.NgZone])
+        }),
+        angular2_meteor_accounts_ui_1.RequireUser(), 
+        __metadata('design:paramtypes', [router_deprecated_1.RouteParams])
     ], PartyDetails);
     return PartyDetails;
-}());
+}(angular2_meteor_1.MeteorComponent));
 exports.PartyDetails = PartyDetails;
 //# sourceMappingURL=party-details.js.map

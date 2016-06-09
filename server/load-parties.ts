@@ -7,17 +7,17 @@ export function loadParties() {
       {'name': 'Spaghetti-Free Zone',
         'description': 'No spaghetti here',
         'location': 'Palo Alto',
-        'owner': Meteor.users.findOne()._id
+        'public': true
       },
       {'name': 'SpaghettiFest',
         'description': 'Spaaaaaaaaaaghetti!',
         'location': 'Palo Alto',
-        'owner': Meteor.users.findOne()._id
+        'public': true
       },
       {'name': 'NoodleFest',
         'description': 'noodlenoodlenoodlenoodle',
         'location': 'San Francisco',
-        'owner': Meteor.users.findOne()._id
+        'public': false
       }
     ];
 
