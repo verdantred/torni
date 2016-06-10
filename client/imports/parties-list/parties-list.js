@@ -30,13 +30,14 @@ var PartiesList = (function (_super) {
         this.curPage = new ReactiveVar(1);
         this.nameOrder = new ReactiveVar(1);
         this.partiesSize = 0;
+        this.location = new ReactiveVar(null);
         this.autorun(function () {
             var options = {
                 limit: _this.pageSize,
                 skip: (_this.curPage.get() - 1) * _this.pageSize,
                 sort: { name: _this.nameOrder.get() }
             };
-            _this.subscribe('parties', options, function () {
+            _this.subscribe('parties', options, _this.location.get(), function () {
                 _this.parties = parties_1.Parties.find({}, { sort: { name: _this.nameOrder.get() } });
             }, true);
         });
@@ -48,12 +49,8 @@ var PartiesList = (function (_super) {
         parties_1.Parties.remove(party._id);
     };
     PartiesList.prototype.search = function (value) {
-        if (value) {
-            this.parties = parties_1.Parties.find({ location: value });
-        }
-        else {
-            this.parties = parties_1.Parties.find();
-        }
+        this.curPage.set(1);
+        this.location.set(value);
     };
     PartiesList.prototype.changeSortOrder = function (nameOrder) {
         this.nameOrder.set(parseInt(nameOrder));

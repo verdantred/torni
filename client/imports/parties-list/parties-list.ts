@@ -23,6 +23,7 @@ export class PartiesList extends MeteorComponent {
   curPage: ReactiveVar<number> = new ReactiveVar<number>(1);
   nameOrder: ReactiveVar<number> = new ReactiveVar<number>(1);
   partiesSize: number = 0;
+  location: ReactiveVar<string> = new ReactiveVar<string>(null);
 
   constructor(){
     super();
@@ -34,7 +35,7 @@ export class PartiesList extends MeteorComponent {
         sort: {name: this.nameOrder.get()}
       };
 
-      this.subscribe('parties', options, () => {
+      this.subscribe('parties', options, this.location.get(), () => {
         this.parties = Parties.find({}, {sort: {name: this.nameOrder.get()}});
       }, true);
     });
@@ -49,12 +50,8 @@ export class PartiesList extends MeteorComponent {
   }
 
   search(value: string) {
-    if(value) {
-      this.parties = Parties.find({location: value});
-    }
-    else{
-      this.parties = Parties.find();
-    }
+    this.curPage.set(1);
+    this.location.set(value);
   }
 
   changeSortOrder(nameOrder: string) {
