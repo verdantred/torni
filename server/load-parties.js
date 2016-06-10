@@ -22,6 +22,14 @@ function loadParties() {
         for (var i = 0; i < parties.length; i++) {
             parties_ts_1.Parties.insert(parties[i]);
         }
+        for (var i = 0; i < 27; i++) {
+            parties_ts_1.Parties.insert({
+                name: Fake.sentence(50),
+                location: Fake.sentence(10),
+                description: Fake.sentence(100),
+                public: true
+            });
+        }
     }
 }
 exports.loadParties = loadParties;

@@ -6,3 +6,7 @@ interface Party {
   owner?: string;
   public: boolean;
 }
+
+declare var Fake: {
+  sentence(words: number): string;
+}

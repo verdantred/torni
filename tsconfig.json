@@ -30,7 +30,8 @@
     "typings/globals/meteor/index.d.ts",
     "typings/index.d.ts",
     "typings/modules/es6-promise/index.d.ts",
-    "typings/party.d.ts"
+    "typings/party.d.ts",
+    "typings/publish-counts.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

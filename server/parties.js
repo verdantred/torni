@@ -1,6 +1,7 @@
 "use strict";
 var parties_1 = require('../collections/parties');
 var meteor_1 = require('meteor/meteor');
+var tmeasday_publish_counts_1 = require('meteor/tmeasday:publish-counts');
 function buildQuery(partyId) {
     var isAvailable = {
         $or: [
@@ -18,8 +19,9 @@ function buildQuery(partyId) {
     }
     return isAvailable;
 }
-meteor_1.Meteor.publish('parties', function () {
-    return parties_1.Parties.find(buildQuery.call(this));
+meteor_1.Meteor.publish('parties', function (options) {
+    tmeasday_publish_counts_1.Counts.publish(this, 'numberOfParties', parties_1.Parties.find(buildQuery.call(this)), { noReady: true });
+    return parties_1.Parties.find(buildQuery.call(this), options);
 });
 meteor_1.Meteor.publish('party', function (partyId) {
     return parties_1.Parties.find(buildQuery.call(this, partyId));
