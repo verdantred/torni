@@ -27,12 +27,25 @@ var PartyDetails = (function (_super) {
         _super.call(this);
         var partyId = params.get('partyId');
         this.subscribe('party', partyId, function () {
-            _this.party = parties_ts_1.Parties.findOne(partyId);
-        }, true);
+            _this.autorun(function () {
+                _this.party = parties_ts_1.Parties.findOne(partyId);
+                _this.getUsers(_this.party);
+            }, true);
+        });
         this.subscribe('uninvited', partyId, function () {
-            _this.users = meteor_1.Meteor.users.find({ _id: { $ne: meteor_1.Meteor.userId() } });
+            _this.getUsers(_this.party);
         }, true);
     }
+    PartyDetails.prototype.getUsers = function (party) {
+        if (party) {
+            this.users = meteor_1.Meteor.users.find({
+                _id: {
+                    $nin: party.invited || [],
+                    $ne: meteor_1.Meteor.userId()
+                }
+            });
+        }
+    };
     PartyDetails.prototype.saveParty = function (party) {
         if (meteor_1.Meteor.userId()) {
             parties_ts_1.Parties.update(party._id, {
