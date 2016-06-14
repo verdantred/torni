@@ -7,6 +7,7 @@ import {APP_BASE_HREF} from '@angular/common';
 
 import {PartiesList} from './imports/parties-list/parties-list.ts';
 import {PartyDetails} from './imports/party-details/party-details.ts';
+import '../collections/methods.ts';
 
 
 @Component({

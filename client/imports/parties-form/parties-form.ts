@@ -30,7 +30,8 @@ export class PartiesForm {
           description: party.description,
           location: party.location,
           'public': party.public,
-          owner: Meteor.userId()
+          owner: Meteor.userId(),
+          invited: []
         });
 
         (<Control>this.partiesForm.controls['name']).updateValue('');

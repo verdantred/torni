@@ -4,17 +4,21 @@ import {Tracker} from 'meteor/tracker';
 import {Meteor} from 'meteor/meteor';
 import {RequireUser} from 'angular2-meteor-accounts-ui';
 import {MeteorComponent} from 'angular2-meteor';
+import {Mongo} from 'meteor/mongo';
 
 import {Parties} from '../../../collections/parties.ts';
+import {DisplayName, UserPartyStatus} from '../pipes/pipes.ts';
 
 @Component({
   selector: 'party-details',
   templateUrl: '/client/imports/party-details/party-details.html',
-  directives: [RouterLink]
+  directives: [RouterLink],
+  pipes: [DisplayName, UserPartyStatus]
 })
 @RequireUser()
 export class PartyDetails extends MeteorComponent{
   party: Party;
+  users: Mongo.Cursor<Object>;
 
   constructor(params: RouteParams) {
     super();
@@ -22,6 +26,10 @@ export class PartyDetails extends MeteorComponent{
 
     this.subscribe('party', partyId, () => {
       this.party = Parties.findOne(partyId);
+    }, true);
+
+    this.subscribe('uninvited', partyId, () => {
+      this.users = Meteor.users.find({_id: {$ne: Meteor.userId()}});
     }, true);
   }
 
@@ -38,5 +46,16 @@ export class PartyDetails extends MeteorComponent{
     else {
       alert('Please log in to change this party');
     }
+  }
+
+  invite(user: Meteor.User) {
+    this.call('invite', this.party._id, user._id, (error) => {
+      if(error) {
+        alert('Failed to invite due to ${error}');
+        return;
+      }
+
+      alert('User successfully invited.')
+    });
   }
 }

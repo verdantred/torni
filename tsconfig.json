@@ -13,27 +13,32 @@
   "filesGlob": [
     "client/**/*.ts",
     "server/**/*.ts",
-    "typings/**/*.d.ts"
+    "typings/**/*.d.ts",
+    "collections/*.ts"
   ],
   "exclude": [
     "node_modules"
   ],
+  "atom": {
+    "rewriteTsconfig": true
+  },
   "files": [
     "client/app.ts",
     "client/imports/parties-form/parties-form.ts",
     "client/imports/parties-list/parties-list.ts",
     "client/imports/party-details/party-details.ts",
+    "client/imports/pipes/pipes.ts",
     "server/load-parties.ts",
     "server/main.ts",
     "server/parties.ts",
+    "server/users.ts",
     "typings/globals/es6-shim/index.d.ts",
     "typings/globals/meteor/index.d.ts",
     "typings/index.d.ts",
     "typings/modules/es6-promise/index.d.ts",
     "typings/party.d.ts",
-    "typings/publish-counts.d.ts"
-  ],
-  "atom": {
-    "rewriteTsconfig": true
-  }
+    "typings/publish-counts.d.ts",
+    "collections/methods.ts",
+    "collections/parties.ts"
+  ]
 }

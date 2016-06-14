@@ -3,6 +3,7 @@ interface Party {
   name: string;
   description?: string;
   location: string;
+  invited?: Array<string>;
   owner?: string;
   public: boolean;
 }

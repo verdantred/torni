@@ -19,6 +19,7 @@ var meteor_1 = require('meteor/meteor');
 var angular2_meteor_accounts_ui_1 = require('angular2-meteor-accounts-ui');
 var angular2_meteor_1 = require('angular2-meteor');
 var parties_ts_1 = require('../../../collections/parties.ts');
+var pipes_ts_1 = require('../pipes/pipes.ts');
 var PartyDetails = (function (_super) {
     __extends(PartyDetails, _super);
     function PartyDetails(params) {
@@ -27,6 +28,9 @@ var PartyDetails = (function (_super) {
         var partyId = params.get('partyId');
         this.subscribe('party', partyId, function () {
             _this.party = parties_ts_1.Parties.findOne(partyId);
+        }, true);
+        this.subscribe('uninvited', partyId, function () {
+            _this.users = meteor_1.Meteor.users.find({ _id: { $ne: meteor_1.Meteor.userId() } });
         }, true);
     }
     PartyDetails.prototype.saveParty = function (party) {
@@ -43,11 +47,21 @@ var PartyDetails = (function (_super) {
             alert('Please log in to change this party');
         }
     };
+    PartyDetails.prototype.invite = function (user) {
+        this.call('invite', this.party._id, user._id, function (error) {
+            if (error) {
+                alert('Failed to invite due to ${error}');
+                return;
+            }
+            alert('User successfully invited.');
+        });
+    };
     PartyDetails = __decorate([
         core_1.Component({
             selector: 'party-details',
             templateUrl: '/client/imports/party-details/party-details.html',
-            directives: [router_deprecated_1.RouterLink]
+            directives: [router_deprecated_1.RouterLink],
+            pipes: [pipes_ts_1.DisplayName, pipes_ts_1.UserPartyStatus]
         }),
         angular2_meteor_accounts_ui_1.RequireUser(), 
         __metadata('design:paramtypes', [router_deprecated_1.RouteParams])
