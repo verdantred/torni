@@ -8,13 +8,14 @@ import {PaginationService, PaginatePipe, PaginationControlsCmp} from 'angular2-p
 
 import {Parties} from '../../../collections/parties';
 import {PartiesForm} from '../parties-form/parties-form';
+import {RsvpPipe} from '../pipes/pipes.ts'
 
 @Component({
   selector: 'parties-list',
   viewProviders: [PaginationService],
   templateUrl: '/client/imports/parties-list/parties-list.html',
   directives: [PartiesForm, RouterLink, LoginButtons, PaginationControlsCmp],
-  pipes: [PaginatePipe]
+  pipes: [PaginatePipe, RsvpPipe]
 })
 
 export class PartiesList extends MeteorComponent {

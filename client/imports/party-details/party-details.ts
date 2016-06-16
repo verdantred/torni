@@ -68,8 +68,18 @@ export class PartyDetails extends MeteorComponent{
         alert('Failed to invite due to ${error}');
         return;
       }
-
       alert('User successfully invited.')
+    });
+  }
+
+  reply(rsvp: string) {
+    this.call('reply', this.party._id, rsvp, (error) => {
+      if(error) {
+        alert('Failed to invite due to ${error}');
+      }
+      else{
+        alert('You successfully replied.')
+      }
     });
   }
 }
