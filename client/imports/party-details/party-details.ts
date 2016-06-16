@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {RouteParams, RouterLink} from '@angular/router-deprecated';
 import {Tracker} from 'meteor/tracker';
 import {Meteor} from 'meteor/meteor';
-import {RequireUser} from 'angular2-meteor-accounts-ui';
+import {RequireUser, InjectUser} from 'angular2-meteor-accounts-ui';
 import {MeteorComponent} from 'angular2-meteor';
 import {Mongo} from 'meteor/mongo';
 
@@ -16,9 +16,11 @@ import {DisplayName, UserPartyStatus} from '../pipes/pipes.ts';
   pipes: [DisplayName, UserPartyStatus]
 })
 @RequireUser()
+@InjectUser()
 export class PartyDetails extends MeteorComponent{
   party: Party;
   users: Mongo.Cursor<Object>;
+  user: Meteor.User;
 
   constructor(params: RouteParams) {
     super();
@@ -81,5 +83,27 @@ export class PartyDetails extends MeteorComponent{
         alert('You successfully replied.')
       }
     });
+  }
+
+  get isOwner(): boolean {
+    if(this.party && this.user) {
+      return this.user._id === this.party.owner;
+    }
+    return false;
+  }
+
+  get isPublic(): boolean {
+    if(this.party) {
+      return this.party.public;
+    }
+    return false;
+  }
+
+  get isInvited(): boolean {
+    if(this.party && this.user) {
+      let invited = this.party.invited || [];
+      return invited.indexOf(this.user._id) !== -1;
+    }
+    return false;
   }
 }
